@@ -1,0 +1,25 @@
+#lang racket
+
+(define (remove-when f l) ;question 1, test thoroughly
+  (cond
+    ((null? l) '())
+    ((f (car l)) (remove-when f (cdr l)))
+    (else (cons (car l) (remove-when f (cdr l))))))
+
+(define (minInt_helper k x) ;question 2, test thoroughly
+  (cond
+    ((null? x) k)
+    ((< k (car x)) (minInt_helper k (cdr x)))
+    (else (minInt_helper (car x) (cdr x)))))
+
+(define (minInt l)
+  (if (null? l)
+      #f
+      (minInt_helper (car l) (cdr l))))
+
+(define (manycall n f x) ;question 3, test thoroughly
+  (cond
+    ((= n 0) x)
+    ((= n 1) x)
+    ((even? n) (manycall (- n 2) f (f (f x))))
+    ((odd? n) (manycall (- n 3) f (f (f x))))))
